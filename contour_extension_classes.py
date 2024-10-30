@@ -27,7 +27,7 @@ class Slicer:
     def __init__(self,mesh) -> None:
     
         self.mesh = mesh
-        self.mesh["elevation"] = self.mesh.points[:,2]
+        #self.mesh["elevation"] = self.mesh.points[:,2]
 
         #getting appended by slicing
         self.contours = []

@@ -68,11 +68,6 @@ def spiral_paths_from_contour_tree(contour_tree,point_spacing,retract_dist,spin=
             if len(branch_section) > 1:
                 #prepare the section to be spiraled
                 branch_section = preprocess_branch(branch_section,spin=spin)
-                p1 = pv.Plotter()
-                for contour in branch_section:
-                    p1.add_points(contour.points[:50])
-                    p1.add_point_labels(contour.points[:50],np.arange(len(contour.points[:50])))
-                p1.show()
                 #generate spiral
                 spiral_points = generate_spiral(branch_section)
                 #add initial and final contour as a complete pass

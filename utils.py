@@ -59,10 +59,19 @@ def geo_dist_from_outer_edge(mesh):
     return geo_dist
 
 
-def load_init_mesh(path):
-    mesh = pv.PolyData(path)
-    mesh["elevation"] = mesh.points[:,2]
-    mesh['geo_dist'] = geo_dist_from_outer_edge(mesh)
+def load_init_mesh(path=None,mesh=None,scalars='elevation'):
+    """Takes a path or a mesh to load it and calculate elevation or geodesic distance (geo_dist) on the mesh and returns it
+    """
+    if not mesh and path: 
+        try: mesh = pv.PolyData(path)
+        except FileNotFoundError:
+            print('No mesh found at this path')
+            return None
+    elif not mesh and not path: 
+        print('nothing provided to load')
+        return None
+    if scalars == 'elevation': mesh["elevation"] = mesh.points[:,2]
+    elif scalars == 'geo_dist': mesh['geo_dist'] = geo_dist_from_outer_edge(mesh)
     return mesh
 
 def levels_from_layer_height(mesh,target_layer_height,scalars='elevation',offset=0.5):
